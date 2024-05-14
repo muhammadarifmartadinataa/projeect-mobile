@@ -6,7 +6,6 @@ import 'package:project_if22a/screen/admin/list_mahasiswa.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
