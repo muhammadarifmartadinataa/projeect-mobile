@@ -1,5 +1,5 @@
 class Api {
-  static const _host ="http://localhost/api_project_mobile_if22a/";
+  static const _host = "http://192.168.56.1/api_project_mobile_if22a";
 
   static String _mahasiswa = "$_host/mahasiswa";
 

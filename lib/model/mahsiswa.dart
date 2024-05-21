@@ -15,9 +15,9 @@ class Mahasiswa{
   );
 
   Map<String, dynamic>toJson() => {
-    'npm':this.npm,
-    'nama':this.nama,
-    'alamat':this.alamat,
+    'npm':npm,
+    'nama':nama,
+    'alamat':alamat,
   };
 
 }

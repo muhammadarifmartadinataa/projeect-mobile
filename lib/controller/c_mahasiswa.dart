@@ -8,6 +8,5 @@ class CMahasiswa extends GetxController{
 
   void setMahasiswa(Mahasiswa dataMahasiswa){
     _mahasiswa.value = dataMahasiswa;
-    _mahasiswa.value = dataMahasiswa;
   }
 }
