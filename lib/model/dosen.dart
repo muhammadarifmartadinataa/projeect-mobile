@@ -1,23 +1,27 @@
-class Mahasiswa{
-  String? npm;
+class Dosen{
+  String? nidn;
   String? nama;
   String? alamat;
+  String? prodi;
 
-  Mahasiswa({
-    this.npm,
+  Dosen({
+    this.nidn,
     this.nama,
     this.alamat,
+    this.prodi,
 });
-  factory Mahasiswa.fromJson(Map<String, dynamic>json)=> Mahasiswa(
-    npm:json['npm'],
+  factory Dosen.fromJson(Map<String, dynamic>json)=> Dosen(
+    nidn:json['nidn'],
     nama:json['nama'],
     alamat:json['alamat'],
+    prodi:json['prodi'],
   );
 
   Map<String, dynamic>toJson() => {
-    'npm':npm,
+    'nidn':nidn,
     'nama':nama,
     'alamat':alamat,
+    'prodi':prodi,
   };
 
 }

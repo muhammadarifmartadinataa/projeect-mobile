@@ -15,23 +15,59 @@ class ListMahasiswa extends StatefulWidget {
 class _ListMahasiswaState extends State<ListMahasiswa> {
   List<Mahasiswa> _listMahasiswa = [];
 
-  void getMahasiswa() async{
+  void getMahasiswa() async {
     _listMahasiswa = await EventDb.getMahasiswa();
     setState(() {});
   }
+
   @override
-  void initState(){
+  void initState() {
     getMahasiswa();
     super.initState();
   }
 
+  void showOption(Mahasiswa? mahasiswa) async {
+    var result = await Get.dialog(
+      SimpleDialog(
+        children: [
+          ListTile(
+            onTap: () => Get.back(result: 'update'),
+            title: Text('Update'),
+          ),
+          ListTile(
+            onTap: () => Get.back(result: 'delete'),
+            title: Text('Delete'),
+          ),
+          ListTile(
+            onTap: () => Get.back(),
+            title: Text('Close'),
+          ),
+        ],
+      ),
+      barrierDismissible: false,
+    );
+    switch (result) {
+      case 'update':
+        Get.to(AddUpdateMahasiswa(mahasiswa: mahasiswa,))
+            ?.then((value) => getMahasiswa());
+      // Handle update action
+        break;
+      case 'delete':
+        EventDb.deleteMahasiswa(mahasiswa!.npm!).then((value) => getMahasiswa());
+        getMahasiswa();
+        break;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''
-            'Data Mahasiswa ',style: TextStyle(color: Colors.white),
+        title: Text(
+          'Data Mahasiswa',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor:Asset.colorPrimaryDark,
+        backgroundColor: Asset.colorPrimaryDark,
       ),
       body: Stack(
         children: [
@@ -40,15 +76,22 @@ class _ListMahasiswaState extends State<ListMahasiswa> {
             itemCount: _listMahasiswa.length,
             itemBuilder: (context, index) {
               Mahasiswa mahasiswa = _listMahasiswa[index];
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text('${index + 1}'),
-                  backgroundColor: Colors.white,
+              return Card(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Text('${index + 1}'),
+                    backgroundColor: Colors.white,
+                  ),
+                  title: Text(mahasiswa.nama ?? ''),
+                  subtitle: Text(mahasiswa.npm ?? ''),
+                  trailing: IconButton(
+                    onPressed: () {
+                      showOption(mahasiswa);
+                    },
+                    icon: Icon(Icons.more_vert),
+                  ),
                 ),
-                title: Text(mahasiswa.nama ?? ''),
-                subtitle: Text(mahasiswa.npm ?? ''),
-                trailing: IconButton(
-                    onPressed: () {}, icon: Icon(Icons.more_vert)),
               );
             },
           )
@@ -69,4 +112,3 @@ class _ListMahasiswaState extends State<ListMahasiswa> {
     );
   }
 }
-

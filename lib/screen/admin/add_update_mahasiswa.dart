@@ -93,11 +93,13 @@ class _AddUpdateMahasiswaState extends State<AddUpdateMahasiswa> {
                           Get.off(ListMahasiswa());
                         }
                       } else {
-                        // EventDb.UpdateMahasiswa(
-                        //   _controllerNpm.text,
-                        //   _controllerNama.text,
-                        //   _controllerAlamat.text,
-                        // );
+                        EventDb.UpdateMahasiswa(
+                          _controllerNpm.text,
+                          _controllerNama.text,
+                          _controllerAlamat.text,
+                        );
+                        Get.off(ListMahasiswa(),
+                        );
                       }
                     }
                   },
