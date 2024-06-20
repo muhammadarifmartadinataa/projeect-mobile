@@ -4,32 +4,32 @@ import 'package:get/get.dart';
 import 'package:project_if22a/config/asset.dart';
 import 'package:project_if22a/event/event_db.dart';
 import 'package:project_if22a/model/dosen.dart';
-import 'package:project_if22a/screen/admin/add_update_dosen.dart';
-import 'package:project_if22a/screen/admin/add_update_mahasiswa.dart';
+import 'package:project_if22a/model/universitas.dart';
+import 'package:project_if22a/screen/admin/add_update_universitas.dart';
 
-class ListDosen extends StatefulWidget {
-  const ListDosen({super.key});
+class ListUniversitas extends StatefulWidget {
+  const ListUniversitas({super.key});
 
   @override
-  State<ListDosen> createState() => _ListDosen();
+  State<ListUniversitas> createState() => _ListUniversitas();
 }
 
-class _ListDosen extends State<ListDosen> {
+class _ListUniversitas extends State<ListUniversitas> {
   @override
-  List<Dosen> _listDosen = [];
+  List<Universitas> _listUniversitas = [];
 
-  void getDosen() async {
-    _listDosen = await EventDb.getDosen();
+  void getUniversitas() async {
+    _listUniversitas = await EventDb.getUniversitas();
     setState(() {});
   }
 
   @override
   void initState() {
-    getDosen();
+    getUniversitas();
     super.initState();
   }
 
-  void showOption(Dosen? dosen) async {
+  void showOption(Universitas? universitas) async {
     var result = await Get.dialog(
       SimpleDialog(
         children: [
@@ -51,12 +51,12 @@ class _ListDosen extends State<ListDosen> {
     );
     switch (result) {
       case 'update':
-        Get.to(AddUpdateDosen(dosen: dosen,))
-            ?.then((value) => getDosen());
+        Get.to(AddUpdateUniversitas(universitas: universitas,))
+            ?.then((value) => getUniversitas());
         break;
       case 'delete':
-        EventDb.deleteDosen(dosen!.nidn!).then((value) => getDosen());
-        getDosen();
+        EventDb.deleteUniversitas(universitas!.kode_univ!).then((value) => getUniversitas());
+        getUniversitas();
         break;
     }
   }
@@ -66,18 +66,18 @@ class _ListDosen extends State<ListDosen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Data Dosen',
+          'Data Universitas',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Asset.colorPrimaryDark,
       ),
       body: Stack(
         children: [
-          _listDosen.length > 0
+          _listUniversitas.length > 0
               ? ListView.builder(
-            itemCount: _listDosen.length,
+            itemCount: _listUniversitas.length,
             itemBuilder: (context, index) {
-              Dosen dosen = _listDosen[index];
+              Universitas universitas = _listUniversitas[index];
               return Card(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
@@ -85,11 +85,11 @@ class _ListDosen extends State<ListDosen> {
                     child: Text('${index + 1}'),
                     backgroundColor: Colors.white,
                   ),
-                  title: Text(dosen.nama ?? ''),
-                  subtitle: Text(dosen.nidn ?? ''),
+                  title: Text(universitas.nama_univ ?? ''),
+                  subtitle: Text(universitas.kode_univ ?? ''),
                   trailing: IconButton(
                     onPressed: () {
-                      showOption(dosen);
+                      showOption(universitas);
                     },
                     icon: Icon(Icons.more_vert),
                   ),
@@ -105,7 +105,7 @@ class _ListDosen extends State<ListDosen> {
             right: 16,
             child: FloatingActionButton(
               onPressed: () =>
-                  Get.to(AddUpdateDosen())?.then((value) => getDosen()),
+                  Get.to(AddUpdateUniversitas())?.then((value) => getUniversitas()),
               child: Icon(Icons.add),
               backgroundColor: Asset.colorAccent,
             ),

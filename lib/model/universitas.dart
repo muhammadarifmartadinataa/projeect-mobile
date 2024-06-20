@@ -1,27 +1,32 @@
-class Dosen{
-  String? nidn;
-  String? nama;
-  String? alamat;
-  String? prodi;
+class Universitas{
+  String? kode_univ;
+  String? nama_univ;
+  String? alamat_univ;
+  String? pos_univ;
+  String? kota_univ;
 
-  Dosen({
-    this.nidn,
-    this.nama,
-    this.alamat,
-    this.prodi,
+  Universitas({
+    this.kode_univ,
+    this.nama_univ,
+    this.alamat_univ,
+    this.pos_univ,
+    this.kota_univ,
 });
-  factory Dosen.fromJson(Map<String, dynamic>json)=> Dosen(
-    nidn:json['nidn'],
-    nama:json['nama'],
-    alamat:json['alamat'],
-    prodi:json['prodi'],
+  factory Universitas.fromJson(Map<String, dynamic>json)=> Universitas(
+    kode_univ:json['kode_univ'],
+    nama_univ:json['nama_univ'],
+    alamat_univ:json['alamat_univ'],
+    pos_univ:json['pos_univ'],
+    kota_univ:json['kota_univ'],
   );
 
   Map<String, dynamic>toJson() => {
-    'nidn':nidn,
-    'nama':nama,
-    'alamat':alamat,
-    'prodi':prodi,
+    'kode_univ':kode_univ,
+    'nama_univ':nama_univ,
+    'alamat_univ':alamat_univ,
+    'pos_univ':pos_univ,
+    'kota_univ':kota_univ,
+
   };
 
 }
